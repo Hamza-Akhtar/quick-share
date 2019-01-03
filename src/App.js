@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Navbar from './layout/Navbar'
+import Home from './layout/Home';
+
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import RecentWorkouts from './components/RecentWorkouts';
+import WorkoutDetails from './layout/WorkoutDetails';
+import SignIn from './components/auth/SignIn';
+import SignUp from './components/auth/SignUp';
+import CreateWorkout from './components/CreateWorkout';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar />
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/recent-workouts' component={RecentWorkouts} />
+            <Route path='/workout/:id' component={WorkoutDetails} />
+            <Route path='/login' component={SignIn} />
+            <Route path='/signup' component={SignUp} />
+            <Route path='/create-workout' component={CreateWorkout} />
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
