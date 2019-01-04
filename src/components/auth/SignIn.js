@@ -7,7 +7,6 @@ class SignIn extends Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
     }
     onChange = (e) => {
         this.setState({

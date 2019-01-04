@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { createWorkout } from '../store/actions/projectActions'
+import { connect } from 'react-redux';
 
 class CreateWorkout extends Component {
 
@@ -67,7 +69,6 @@ class CreateWorkout extends Component {
 
     changeNameOrDescription = (e) => {
         if (e.target.id === "workoutname") {
-            console.log('here');
             this.setState({
                 workoutName: this.refs.workoutname.innerText
             });
@@ -77,6 +78,10 @@ class CreateWorkout extends Component {
                 workoutDescription: this.refs.workoutdescription.innerText
             });
         }
+    }
+
+    submit = () => {
+        this.props.createWorkout(this.state)
     }
 
     render() {
@@ -123,7 +128,7 @@ class CreateWorkout extends Component {
                 </button>
                 </div>
                 <br></br>
-                <button className="btn red right">
+                <button onClick={this.submit} className="btn red right">
                     Create Workout
                 </button>
             </div>
@@ -131,4 +136,10 @@ class CreateWorkout extends Component {
     }
 }
 
-export default CreateWorkout
+const mapDispatchToProps = (dispatch) => {
+    return {
+        createWorkout: (project) => dispatch(createWorkout(project))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CreateWorkout);
