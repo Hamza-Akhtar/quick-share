@@ -9,8 +9,8 @@ const Navbar = () => {
           <ul className="right">
             <li><Link to='/create-workout'>New Workout</Link></li>
             <li><Link to='/recent-workouts'>Recent Workouts</Link></li>
-            <li><Link to='/about'>About</Link></li>
-            <li><Link to='/help'>Help</Link></li>
+            {/* <li><Link to='/about'>About</Link></li>
+            <li><Link to='/help'>Help</Link></li> */}
           </ul>
         </div>
       </nav>

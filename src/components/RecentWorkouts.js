@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import { Link } from 'react-router-dom';
 
 class RecentWorkout extends Component {
     render() {
@@ -9,6 +10,7 @@ class RecentWorkout extends Component {
         const recentWorkoutListDiv = recentWorkoutList ? recentWorkoutList.map(
             elem => {
                 return (
+                    <Link to={'/workout/' + elem.id} key={elem.id + 'link'} >
                     <div className="card project-summary" key={elem.id + 'summary'}>
                         <div className="card-content grey-text text-darken-3" key={elem.id + 'content'}>
                             <span className="card-title center" key={elem.id + 'title'}>{elem.workoutName}</span>
@@ -18,11 +20,12 @@ class RecentWorkout extends Component {
                                 elem.date.toDate().toDateString() }</p>
                         </div>
                     </div>
+                    </Link>
                 )
             }
         ) :
         <div>
-           <h3 className="center"> No Recent Workouts </h3>
+           <p className="center"> No Recent Workouts </p>
         </div>
         return (
             <div className="recent container">
@@ -47,5 +50,4 @@ const mapStatetoProps = (state) => {
 export default compose(
     connect(mapStatetoProps), 
     firestoreConnect([
-        {collection: 'workoutDetails'}
-    ]))(RecentWorkout);
+        {collection: 'workoutDetails'}]))(RecentWorkout);
