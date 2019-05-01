@@ -12,7 +12,7 @@ class Home extends Component {
             <div className="homepage">
                 <div className="homeImg"> </div>
                 <h1 className="center">Welcome to QuickShare</h1>
-                <p className="center homeP">Create & Share Workouts with anyone on the Web within Seconds!</p>
+                <p className="center homeP">Create & Share workouts with anyone on the web within seconds!</p>
                 <button className="center btn homeBtn" onClick={ this.btnClick }>Get Started</button>
             </div>
         )

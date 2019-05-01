@@ -1,13 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 
-const WorkoutDetails = props => {
-  const workout = props.workout;
-  const table = workout
-    ? workout.excercise.map(row => {
-        return (
+class WorkoutDetails extends Component {
+
+
+  func(val) {
+    const table = this.props.workout.days[val].excercise.map(row => {
+        return ( 
           <tr key={row.id}>
             <td key={row.id + "name"}>
               {" "}
@@ -24,7 +25,36 @@ const WorkoutDetails = props => {
           </tr>
         );
       })
-    : null;
+
+      return table;
+  }
+
+
+  render() {
+
+  const workout = this.props.workout;
+
+  const outer = 
+  workout
+    ? workout.days.map(day => {
+    return (
+      <div className="row col-md-6 col-md-offset-2 custyle">
+        <h5>Day {day.dayID + 1}</h5>
+        <table className="table table-striped custab">
+          <thead>
+            <tr>
+              <th>&emsp;&emsp;Exercise</th>
+              <th>&emsp;Sets</th>
+              <th>&emsp;Reps</th>
+              <th className="text-center" />
+            </tr>
+          </thead>
+          <tbody>{this.func(day.dayID)}</tbody>
+        </table>
+        <br></br>
+      </div>
+    );
+  }) : null;
 
   return workout ? (
     <div>
@@ -36,18 +66,7 @@ const WorkoutDetails = props => {
           {workout.workoutDescription}
         </p>
         <br />
-        <div className="row col-md-6 col-md-offset-2 custyle">
-          <table className="table table-striped custab">
-            <thead>
-              <tr>
-                <th>&emsp;&emsp;Exercise</th>
-                <th>&emsp;Sets</th>
-                <th>&emsp;Reps</th>
-              </tr>
-            </thead>
-            <tbody>{table}</tbody>
-          </table>
-        </div>
+        {outer}
         <br />
         <p className="right">
           <i>{"Created: " + workout.created.toDate().toDateString()}</i>
@@ -57,7 +76,8 @@ const WorkoutDetails = props => {
   ) : (
     <div className="center">Workout not found</div>
   );
-};
+}
+}
 
 const mapStateToProps = (state, props) => {
   const id = props.match.params.id;
